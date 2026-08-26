@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include "TWCCBranding.hpp"
+
 #include <utility/NativeEventFilter.hpp>
 #include <utility/OBSTheme.hpp>
 #include <utility/ThumbnailManager.hpp>
@@ -38,6 +40,7 @@
 #include <deque>
 #include <functional>
 #include <string>
+#include <utility>
 #include <vector>
 
 typedef std::function<void()> VoidFunc;
@@ -273,7 +276,8 @@ inline const char *Str(const char *lookup)
 }
 inline QString QTStr(const char *lookupVal)
 {
-	return QString::fromUtf8(Str(lookupVal));
+	QString text = QString::fromUtf8(Str(lookupVal));
+	return ApplyTWCCBranding(std::move(text), lookupVal);
 }
 
 int GetProgramDataPath(char *path, size_t size, const char *name);

@@ -17,7 +17,7 @@ OBSSparkle::OBSSparkle(const char *branch, QAction *checkForUpdatesAction)
 
         updaterDelegate.updaterController =
             [[SPUStandardUpdaterController alloc] initWithStartingUpdater:YES updaterDelegate:updaterDelegate
-                                                       userDriverDelegate:nil];
+                                                       userDriverDelegate:updaterDelegate];
         [updaterDelegate observeCanCheckForUpdatesWithAction:checkForUpdatesAction];
     }
 }

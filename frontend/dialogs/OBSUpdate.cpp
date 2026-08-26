@@ -9,6 +9,9 @@ OBSUpdate::OBSUpdate(QWidget *parent, bool manualUpdate, const QString &text)
 	  ui(new Ui_OBSUpdate)
 {
 	ui->setupUi(this);
+	setWindowTitle(QStringLiteral("Upstream OBS — ") + windowTitle());
+	ui->label->setText(QStringLiteral("Upstream OBS: ") + ui->label->text());
+	ui->yes->setText(ui->yes->text() + QStringLiteral(" (Upstream OBS)"));
 	ui->text->setHtml(text);
 
 	if (manualUpdate) {

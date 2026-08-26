@@ -88,8 +88,8 @@ bool TwitchAuth::MakeApiRequest(const char *path, Json &json_out)
 	ExecThreadedWithoutBlocking(func, QTStr("Auth.LoadingChannel.Title"),
 				    QTStr("Auth.LoadingChannel.Text").arg(service()));
 	if (error_code == 403) {
-		OBSMessageBox::warning(OBSBasic::Get(), Str("TwitchAuth.TwoFactorFail.Title"),
-				       Str("TwitchAuth.TwoFactorFail.Text"), true);
+		OBSMessageBox::warning(OBSBasic::Get(), QTStr("TwitchAuth.TwoFactorFail.Title"),
+				       QTStr("TwitchAuth.TwoFactorFail.Text"), true);
 		blog(LOG_WARNING, "%s: %s. API response: %s", __FUNCTION__,
 		     "Got 403 from Twitch, user probably does not "
 		     "have two-factor authentication enabled on "

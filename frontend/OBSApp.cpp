@@ -950,10 +950,10 @@ OBSApp::OBSApp(int &argc, char **argv, profiler_name_store_t *store)
 		crashHandler_ = std::make_unique<OBS::CrashHandler>(appLaunchUUID_);
 	}
 
-	sleepInhibitor = os_inhibit_sleep_create("OBS Video/audio");
+	sleepInhibitor = os_inhibit_sleep_create("TWCC Studio Video/audio");
 
 #ifndef __APPLE__
-	setWindowIcon(QIcon::fromTheme("obs", QIcon(":/res/images/obs.png")));
+	setWindowIcon(QIcon(":/res/images/twcc.png"));
 #endif
 
 	setDesktopFileName("com.obsproject.Studio");

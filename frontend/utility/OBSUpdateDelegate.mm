@@ -35,6 +35,19 @@
     return self.feedUrl;
 }
 
+- (id<SUVersionDisplay>)standardUserDriverRequestsVersionDisplayer
+{
+    return self;
+}
+
+- (NSString *)formatUpdateDisplayVersionFromUpdate:(SUAppcastItem *)update
+                           andBundleDisplayVersion:(NSString **)inOutBundleDisplayVersion
+                                 withBundleVersion:(NSString *)bundleVersion
+{
+    NSString *displayVersion = update.displayVersionString ?: update.versionString;
+    return [NSString stringWithFormat:@"%@ — upstream OBS release", displayVersion];
+}
+
 - (void)dealloc
 {
     @autoreleasepool {

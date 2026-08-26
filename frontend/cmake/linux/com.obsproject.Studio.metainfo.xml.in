@@ -4,9 +4,9 @@
   <launchable type="desktop-id">com.obsproject.Studio.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0-or-later</project_license>
-  <name>OBS Studio</name>
-  <developer id="com.obsproject">
-    <name>OBS Project</name>
+  <name>TWCC Studio</name>
+  <developer id="org.webcreativecommunity">
+    <name>The Web Creative Community</name>
   </developer>
   <summary>Live stream and record videos</summary>
   <description>
@@ -28,7 +28,7 @@
       <li>Get a high level view of your production using the Multiview. Monitor 8 different scenes and easily cue or transition to any of them with merely a single or double click.</li>
     </ul>
   </description>
-  <url type="homepage">https://obsproject.com</url>
+  <url type="homepage">https://webcreativecommunity.org/</url>
   <url type="bugtracker">https://github.com/obsproject/obs-studio/issues</url>
   <url type="donation">https://obsproject.com/contribute</url>
   <url type="translate">https://crowdin.com/project/obs-studio</url>
@@ -45,15 +45,8 @@
     <control>touch</control>
   </supports>
 
-  <screenshots>
-    <screenshot type="default">
-      <image>https://obsproject.com/assets/images/OBSDemoApp301Flathub.png</image>
-      <caption>The OBS Studio window showing a card game, the project website, a video, and a purple rectangle</caption>
-    </screenshot>
-  </screenshots>
-
   <branding>
-    <color type="primary">#284cb8</color>
+    <color type="primary">#8a0707</color>
   </branding>
 
   <content_rating type="oars-1.1"/>

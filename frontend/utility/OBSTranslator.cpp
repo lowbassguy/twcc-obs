@@ -28,9 +28,12 @@ QString OBSTranslator::translate(const char *, const char *sourceText, const cha
 	const char *out = nullptr;
 	QString str(sourceText);
 	str.replace(" ", "");
-	if (!App()->TranslateString(QT_TO_UTF8(str), &out)) {
-		return QString(sourceText);
+	const QByteArray lookup = str.toUtf8();
+	if (!App()->TranslateString(lookup.constData(), &out)) {
+		QString text = QString::fromUtf8(sourceText);
+		return ApplyTWCCBranding(std::move(text), lookup.constData());
 	}
 
-	return QT_UTF8(out);
+	QString text = QT_UTF8(out);
+	return ApplyTWCCBranding(std::move(text), lookup.constData());
 }

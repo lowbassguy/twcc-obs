@@ -1,0 +1,155 @@
+/* The Web Creative Community's single, locked visual theme. */
+
+@OBSThemeMeta {
+    name: 'TWCC';
+    id: 'org.webcreativecommunity.TWCC';
+    extends: 'com.obsproject.Yami';
+    author: 'The Web Creative Community';
+    dark: 'true';
+}
+
+@OBSThemeVars {
+    /* Brand palette from webcreativecommunity.org */
+    --blue1: #ffb3b3;
+    --blue2: #ff9090;
+    --blue3: #c41010;
+    --blue4: #8a0707;
+    --blue5: #5d0505;
+    --blue6: #3a0101;
+
+    --grey1: #6f5555;
+    --grey2: #533a3a;
+    --grey3: #3a2020;
+    --grey4: #2a1212;
+    --grey5: #1a0909;
+    --grey6: #100505;
+    --grey7: #0a0303;
+    --grey8: #000000;
+
+    --bg_window: #0a0303;
+    --bg_base: #100505;
+    --bg_preview: #000000;
+
+    --primary: #8a0707;
+    --primary_light: #c41010;
+    --primary_lighter: #ff9090;
+    --primary_dark: #3a0101;
+    --primary_darker: #1a0303;
+
+    --text: #ffffff;
+    --text_light: #ffffff;
+    --text_muted: #c7c7c7;
+    --text_disabled: #8f7b7b;
+    --text_inactive: #e6dddd;
+
+    --border_color: #3a2020;
+    --highlight_color: #ff9090;
+
+    --scrollbar_handle: #9b6666;
+    --scrollbar_bg: #100505;
+    --scrollbar_hover: #c41010;
+    --scrollbar_down: #ff6f6f;
+    --scrollbar_border: #715757;
+
+    --input_bg: #160606;
+    --input_bg_hover: #220808;
+    --input_bg_focus: #000000;
+    --input_border: #715757;
+    --input_border_hover: #c41010;
+    --input_border_focus: #ff9090;
+
+    --list_item_bg_selected: #8a0707;
+    --list_item_bg_hover: #3a0101;
+
+    --button_bg: #160606;
+    --button_bg_hover: #3a0101;
+    --button_bg_down: #000000;
+    --button_bg_disabled: #100505;
+    --button_border: #c41010;
+    --button_border_hover: #c41010;
+    --button_border_focus: #ff9090;
+
+    --button_bg_red: #8a0707;
+    --button_bg_red_hover: #c41010;
+    --button_bg_red_down: #5d0505;
+
+    --tab_bg: #100505;
+    --tab_bg_hover: #3a0101;
+    --tab_bg_down: #8a0707;
+    --tab_bg_disabled: #0a0303;
+    --tab_border: #3a2020;
+    --tab_border_hover: #c41010;
+    --tab_border_focus: #ff9090;
+    --tab_border_selected: #c41010;
+
+    --toolbutton_bg: #160606;
+    --toolbutton_bg_hover: #3a0101;
+    --toolbutton_bg_down: #000000;
+
+    --palette_window: #0a0303;
+    --palette_windowText: #ffffff;
+    --palette_base: #100505;
+    --palette_light: #533a3a;
+    --palette_mid: #0a0303;
+    --palette_dark: #100505;
+    --palette_highlight: #8a0707;
+    --palette_highlightedText: #ffffff;
+    --palette_text: #ffffff;
+    --palette_link: #ff6f6f;
+    --palette_linkVisited: #ff9090;
+    --palette_button: #160606;
+    --palette_buttonText: #ffffff;
+}
+
+QMenu::separator {
+    background-color: var(--grey3);
+}
+
+QDockWidget::title {
+    background-color: var(--grey6);
+}
+
+QDockWidget::close-button:hover,
+QDockWidget::float-button:hover {
+    background-color: var(--primary_dark);
+}
+
+QScrollBar::handle:hover {
+    border-color: var(--scrollbar_hover);
+}
+
+QScrollBar::handle:pressed {
+    border-color: var(--scrollbar_down);
+}
+
+QToolButton,
+QPushButton[toolButton="true"] {
+    background-color: var(--toolbutton_bg);
+    border-color: var(--button_border);
+}
+
+QToolButton:hover,
+QToolButton:focus {
+    background-color: var(--toolbutton_bg_hover);
+    border-color: var(--button_border_hover);
+}
+
+QToolButton:pressed,
+QToolButton:pressed:hover {
+    background-color: var(--toolbutton_bg_down);
+    border-color: var(--button_border_focus);
+}
+
+QHeaderView::section,
+QTabBar::tab,
+QTabBar QToolButton {
+    background-color: var(--grey5);
+}
+
+OBSQTDisplay {
+    qproperty-displayBackgroundColor: var(--grey8);
+}
+
+.text-bright {
+    color: var(--primary_lighter);
+}

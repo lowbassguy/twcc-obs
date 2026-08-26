@@ -122,6 +122,7 @@ target_sources(
     util/task.c
     util/task.h
     util/text-lookup.c
+    util/text-lookup-internal.h
     util/text-lookup.h
     util/threading.h
     util/utf8.c

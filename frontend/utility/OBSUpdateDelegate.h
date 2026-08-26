@@ -22,7 +22,7 @@
 
 #import <QAction>
 
-@interface OBSUpdateDelegate : NSObject <SPUUpdaterDelegate> {
+@interface OBSUpdateDelegate : NSObject <SPUUpdaterDelegate, SPUStandardUserDriverDelegate, SUVersionDisplay> {
 }
 @property (copy) NSString *_Nonnull branch;
 @property (copy) NSString *_Nullable feedUrl;
@@ -35,4 +35,8 @@
                         change:(NSDictionary<NSKeyValueChangeKey, id> *_Nullable)change
                        context:(void *_Nullable)context;
 - (nullable NSString *)feedURLStringForUpdater:(SPUUpdater *_Nullable)updater;
+- (nullable id<SUVersionDisplay>)standardUserDriverRequestsVersionDisplayer;
+- (nonnull NSString *)formatUpdateDisplayVersionFromUpdate:(nonnull SUAppcastItem *)update
+                                   andBundleDisplayVersion:(NSString *_Nonnull *_Nonnull)inOutBundleDisplayVersion
+                                         withBundleVersion:(nonnull NSString *)bundleVersion;
 @end

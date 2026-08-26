@@ -700,14 +700,7 @@ private:
 
 			TaskbarOverlaySetStatus(TaskbarOverlayStatusActive);
 			if (trayIcon && trayIcon->isVisible()) {
-#ifdef __APPLE__
-				QIcon trayMask = QIcon(":/res/images/tray_active_macos.svg");
-				trayMask.setIsMask(true);
-				trayIcon->setIcon(QIcon::fromTheme("obs-tray", trayMask));
-#else
-				trayIcon->setIcon(
-					QIcon::fromTheme("obs-tray-active", QIcon(":/res/images/tray_active.png")));
-#endif
+				trayIcon->setIcon(QIcon(":/res/images/twcc_tray_active.png"));
 			}
 		}
 	}
@@ -722,32 +715,14 @@ private:
 
 			TaskbarOverlaySetStatus(TaskbarOverlayStatusInactive);
 			if (trayIcon && trayIcon->isVisible()) {
-#ifdef __APPLE__
-				QIcon trayIconFile = QIcon(":/res/images/obs_macos.svg");
-				trayIconFile.setIsMask(true);
-#else
-				QIcon trayIconFile = QIcon(":/res/images/obs.png");
-#endif
-				trayIcon->setIcon(QIcon::fromTheme("obs-tray", trayIconFile));
+				trayIcon->setIcon(QIcon(":/res/images/twcc.png"));
 			}
 		} else if (outputHandler->Active() && trayIcon && trayIcon->isVisible()) {
 			if (os_atomic_load_bool(&recording_paused)) {
-#ifdef __APPLE__
-				QIcon trayIconFile = QIcon(":/res/images/obs_paused_macos.svg");
-				trayIconFile.setIsMask(true);
-#else
-				QIcon trayIconFile = QIcon(":/res/images/obs_paused.png");
-#endif
-				trayIcon->setIcon(QIcon::fromTheme("obs-tray-paused", trayIconFile));
+				trayIcon->setIcon(QIcon(":/res/images/twcc_paused.png"));
 				TaskbarOverlaySetStatus(TaskbarOverlayStatusPaused);
 			} else {
-#ifdef __APPLE__
-				QIcon trayIconFile = QIcon(":/res/images/tray_active_macos.svg");
-				trayIconFile.setIsMask(true);
-#else
-				QIcon trayIconFile = QIcon(":/res/images/tray_active.png");
-#endif
-				trayIcon->setIcon(QIcon::fromTheme("obs-tray-active", trayIconFile));
+				trayIcon->setIcon(QIcon(":/res/images/twcc_tray_active.png"));
 				TaskbarOverlaySetStatus(TaskbarOverlayStatusActive);
 			}
 		}

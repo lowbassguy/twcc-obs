@@ -17,7 +17,7 @@
 #include <ctype.h>
 
 #include "dstr.h"
-#include "text-lookup.h"
+#include "text-lookup-internal.h"
 #include "lexer.h"
 #include "platform.h"
 #include "uthash.h"
@@ -268,4 +268,28 @@ bool text_lookup_getstr(lookup_t *lookup, const char *lookup_val, const char **o
 	if (lookup)
 		return lookup_getstring(lookup_val, out, lookup);
 	return false;
+}
+
+bool text_lookup_replace(lookup_t *lookup, const char *lookup_val, const char *from, const char *to)
+{
+	struct text_item *item;
+	struct dstr value;
+	char *from_copy;
+	char *to_copy;
+
+	if (!lookup || !lookup_val || !from || !*from || !to)
+		return false;
+
+	HASH_FIND_STR(lookup->items, lookup_val, item);
+	if (!item)
+		return false;
+
+	from_copy = bstrdup(from);
+	to_copy = bstrdup(to);
+	dstr_init_move_array(&value, item->value);
+	dstr_replace(&value, from_copy, to_copy);
+	bfree(from_copy);
+	bfree(to_copy);
+	item->value = value.array;
+	return true;
 }

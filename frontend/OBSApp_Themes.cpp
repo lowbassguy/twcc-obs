@@ -1035,16 +1035,6 @@ void OBSApp::themeFileChanged(const QString &path)
 	SetTheme(currentTheme->id);
 }
 
-static map<string, string> themeMigrations = {
-	{"Yami", DEFAULT_THEME},
-	{"Grey", "com.obsproject.Yami.Grey"},
-	{"Rachni", "com.obsproject.Yami.Rachni"},
-	{"Light", "com.obsproject.Yami.Light"},
-	{"Dark", "com.obsproject.Yami.Classic"},
-	{"Acri", "com.obsproject.Yami.Acri"},
-	{"System", "com.obsproject.System"},
-};
-
 bool OBSApp::InitTheme()
 {
 	defaultPalette = palette();
@@ -1072,31 +1062,11 @@ bool OBSApp::InitTheme()
 	/* Load list of themes and read their metadata */
 	FindThemes();
 
-	/* Migrate old theme config key */
-	if (config_has_user_value(userConfig, "General", "CurrentTheme3") &&
-	    !config_has_user_value(userConfig, "Appearance", "Theme")) {
-		const char *old = config_get_string(userConfig, "General", "CurrentTheme3");
-
-		if (themeMigrations.count(old)) {
-			config_set_string(userConfig, "Appearance", "Theme", themeMigrations[old].c_str());
-		}
-	}
-
-	QString themeName = config_get_string(userConfig, "Appearance", "Theme");
-
-	if (themeName.isEmpty() || !GetTheme(themeName)) {
-		if (!themeName.isEmpty()) {
-			blog(LOG_WARNING,
-			     "Loading theme \"%s\" failed, falling back to "
-			     "default theme (\"%s\").",
-			     QT_TO_UTF8(themeName), DEFAULT_THEME);
-		}
 #ifdef _WIN32
-		themeName = HighContrastEnabled() ? "com.obsproject.System" : DEFAULT_THEME;
+	QString themeName = HighContrastEnabled() ? "com.obsproject.System" : DEFAULT_THEME;
 #else
-		themeName = DEFAULT_THEME;
+	QString themeName = DEFAULT_THEME;
 #endif
-	}
 
 	if (config_get_bool(userConfig, "Appearance", "AutoReload")) {
 		if (themeWatcher) {

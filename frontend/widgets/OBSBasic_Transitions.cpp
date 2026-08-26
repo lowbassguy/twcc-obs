@@ -77,7 +77,8 @@ void OBSBasic::InitDefaultTransitions()
 	// obs-transitions failed to load for whatever reason.
 	if (!fadeTransition || !cutTransition) {
 		// FIXME: https://github.com/obsproject/obs-studio/issues/13394
-		throw "InitDefaultTransitions: Could not load default transitions. Try re-installing OBS Studio from "
+		throw "InitDefaultTransitions: Could not load default transitions. Try re-installing the application "
+		      "from its original distribution source. Upstream builds are available at "
 		      "<a href=\"https://obsproject.com/\">obsproject.com</a>.";
 	}
 

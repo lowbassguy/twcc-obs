@@ -349,6 +349,11 @@ OBSBasicSettings::OBSBasicSettings(QWidget *parent)
 
 	ui->setupUi(this);
 
+#if defined(_WIN32) || defined(ENABLE_SPARKLE_UPDATER)
+	ui->enableAutoUpdates->setText(
+		ui->enableAutoUpdates->text() + QStringLiteral(" (Upstream OBS)"));
+#endif
+
 	main->EnableOutputs(false);
 
 	ui->listWidget->setAttribute(Qt::WA_MacShowFocusRect, false);
@@ -391,8 +396,6 @@ OBSBasicSettings::OBSBasicSettings(QWidget *parent)
 	HookWidget(ui->multiviewDrawNames,   CHECK_CHANGED,  GENERAL_CHANGED);
 	HookWidget(ui->multiviewDrawAreas,   CHECK_CHANGED,  GENERAL_CHANGED);
 	HookWidget(ui->multiviewLayout,      COMBO_CHANGED,  GENERAL_CHANGED);
-	HookWidget(ui->theme, 		     COMBO_CHANGED,  APPEAR_CHANGED);
-	HookWidget(ui->themeVariant,	     COMBO_CHANGED,  APPEAR_CHANGED);
 	HookWidget(ui->appearanceFontScale,  SLIDER_CHANGED, APPEAR_CHANGED);
 	HookWidget(ui->appearanceDensity1,   CHECK_CHANGED,  APPEAR_CHANGED);
 	HookWidget(ui->appearanceDensity2,   CHECK_CHANGED,  APPEAR_CHANGED);
@@ -728,7 +731,7 @@ OBSBasicSettings::OBSBasicSettings(QWidget *parent)
 	sourceCreated.Connect(obs_get_signal_handler(), "source_create", ReloadAudioSources, this);
 	channelChanged.Connect(obs_get_signal_handler(), "channel_change", ReloadAudioSources, this);
 
-	hotkeyConflictIcon = QIcon::fromTheme("obs", QIcon(":/res/images/warning.svg"));
+	hotkeyConflictIcon = QIcon(":/res/images/warning.svg");
 
 	auto ReloadHotkeys = [](void *data, calldata_t *) {
 		auto settings = static_cast<OBSBasicSettings *>(data);
@@ -3870,10 +3873,6 @@ bool OBSBasicSettings::QueryChanges()
 
 		SaveSettings();
 	} else {
-		if (savedTheme != App()->GetTheme()) {
-			App()->SetTheme(savedTheme->id);
-		}
-
 		LoadSettings(true);
 		restart = false;
 	}
@@ -4024,11 +4023,6 @@ void OBSBasicSettings::on_buttonBox_clicked(QAbstractButton *button)
 	}
 
 	if (val == QDialogButtonBox::AcceptRole || val == QDialogButtonBox::RejectRole) {
-		if (val == QDialogButtonBox::RejectRole) {
-			if (savedTheme != App()->GetTheme()) {
-				App()->SetTheme(savedTheme->id);
-			}
-		}
 		ClearChanged();
 		close();
 	}

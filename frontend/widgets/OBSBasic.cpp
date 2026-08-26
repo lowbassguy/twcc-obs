@@ -256,6 +256,11 @@ OBSBasic::OBSBasic(QWidget *parent) : OBSMainWindow(parent), undo_s(ui), ui(new 
 	ui->setupUi(this);
 	ui->previewDisabledWidget->setVisible(false);
 
+#if defined(_WIN32) || defined(ENABLE_SPARKLE_UPDATER)
+	ui->actionCheckForUpdates->setText(
+		ui->actionCheckForUpdates->text() + QStringLiteral(" (Upstream OBS)"));
+#endif
+
 	/* Set up streaming connections */
 	connect(
 		this, &OBSBasic::StreamingStarting, this, [this] { this->streamingStarting = true; },
@@ -454,7 +459,7 @@ OBSBasic::OBSBasic(QWidget *parent) : OBSMainWindow(parent), undo_s(ui), ui(new 
 	installEventFilter(shortcutFilter);
 
 	stringstream name;
-	name << "OBS " << App()->GetVersionString();
+	name << TWCC_PRODUCT_NAME << " " << App()->GetVersionString();
 	blog(LOG_INFO, "%s", name.str().c_str());
 	blog(LOG_INFO, "---------------------------------");
 
@@ -2126,9 +2131,9 @@ void OBSBasic::UpdateTitleBar()
 	const char *profile = config_get_string(App()->GetUserConfig(), "Basic", "Profile");
 	const char *sceneCollection = config_get_string(App()->GetUserConfig(), "Basic", "SceneCollection");
 
-	name << "OBS ";
+	name << TWCC_PRODUCT_NAME << " ";
 	if (previewProgramMode) {
-		name << "Studio ";
+		name << "[" << Str("Basic.TogglePreviewProgramMode") << "] ";
 	}
 
 	name << App()->GetVersionString(false);

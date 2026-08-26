@@ -1546,7 +1546,7 @@ static bool Update(wchar_t *cmdLine)
 
 	if (updates.empty()) {
 		Status(L"All available updates are already installed.");
-		SetDlgItemText(hwndMain, IDC_BUTTON, L"Launch OBS");
+		SetDlgItemText(hwndMain, IDC_BUTTON, L"Launch Updated Application");
 		return true;
 	}
 
@@ -1801,7 +1801,7 @@ static bool Update(wchar_t *cmdLine)
 	SendDlgItemMessage(hwndMain, IDC_PROGRESS, PBM_SETPOS, 100, 0);
 
 	Status(L"Update complete.");
-	SetDlgItemText(hwndMain, IDC_BUTTON, L"Launch OBS");
+	SetDlgItemText(hwndMain, IDC_BUTTON, L"Launch Updated Application");
 	return true;
 }
 
@@ -2079,7 +2079,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR lpCmdLine, int)
 
 	if (!IsWindows10OrGreater()) {
 		MessageBox(nullptr,
-			   L"OBS Studio 28 and newer no longer support Windows 7,"
+			   L"This application no longer supports Windows 7,"
 			   L" Windows 8, or Windows 8.1. You can disable the"
 			   L" following setting to opt out of future updates:"
 			   L" Settings → General → General → Automatically check"
@@ -2092,7 +2092,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, LPWSTR lpCmdLine, int)
 
 		WinHandle hMutex = OpenMutex(SYNCHRONIZE, false, L"OBSUpdaterRunningAsNonAdminUser");
 		if (hMutex) {
-			MessageBox(nullptr, L"OBS Studio Updater must be run as an administrator.", L"Updater Error",
+			MessageBox(nullptr, L"The upstream OBS updater must be run as an administrator.", L"Updater Error",
 				   MB_ICONWARNING);
 			return 2;
 		}

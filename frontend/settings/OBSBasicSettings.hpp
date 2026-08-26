@@ -83,8 +83,6 @@ private:
 
 	static constexpr uint32_t ENCODER_HIDE_FLAGS = (OBS_ENCODER_CAP_DEPRECATED | OBS_ENCODER_CAP_INTERNAL);
 
-	OBSTheme *savedTheme = nullptr;
-
 	std::vector<FFmpegFormat> formats;
 
 	OBSPropertiesView *streamProperties = nullptr;
@@ -190,7 +188,7 @@ private:
 	void LoadVideoSettings();
 	void LoadHotkeySettings(obs_hotkey_id ignoreKey = OBS_INVALID_HOTKEY_ID);
 	void LoadA11ySettings(bool presetChange = false);
-	void LoadAppearanceSettings(bool reload = false);
+	void LoadAppearanceSettings();
 	void LoadAdvancedSettings();
 	void LoadSettings(bool changedOnly);
 
@@ -198,7 +196,6 @@ private:
 
 	/* general */
 	void LoadLanguageList();
-	void LoadThemeList(bool firstLoad);
 	void LoadBranchesList();
 
 	/* stream */
@@ -346,8 +343,6 @@ private:
 	void SwapMultiTrack(const char *protocol);
 
 private slots:
-	void on_theme_activated(int idx);
-	void on_themeVariant_activated(int idx);
 	void updateAppearanceControls();
 
 	void on_listWidget_itemSelectionChanged();

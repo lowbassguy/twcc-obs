@@ -17,6 +17,7 @@
 
 #include "util/platform.h"
 #include "util/dstr.h"
+#include "util/text-lookup-internal.h"
 
 #include "obs-defs.h"
 #include "obs-internal.h"
@@ -25,6 +26,61 @@
 extern const char *get_module_extension(void);
 
 obs_module_t *loadingModule = NULL;
+
+struct twcc_locale_branding {
+	const char *module_name;
+	const char *lookup_value;
+};
+
+/* Only user-facing product references are included. Protocol names, URLs,
+ * plugin names, and other compatibility identifiers remain unchanged. */
+static const struct twcc_locale_branding twcc_locale_branding[] = {
+	{"aja", "AutoStart"},
+	{"coreaudio-encoder", "UseInputSampleRate"},
+	{"decklink", "AutoStart"},
+	{"frontend-tools", "PythonSettings.AlreadyLoaded.Message"},
+	{"mac-capture", "DisplayCapture.HideOBS"},
+	{"mac-virtualcam", "Error.SystemExtension.NotInstalled"},
+	{"mac-virtualcam", "Error.SystemExtension.NotInstalled.MacOS15"},
+	{"mac-virtualcam", "Error.SystemExtension.WrongLocation"},
+	{"obs-browser", "RerouteAudio"},
+	{"obs-browser", "WebpageControlLevel.Level.Advanced"},
+	{"obs-browser", "WebpageControlLevel.Level.All"},
+	{"obs-browser", "WebpageControlLevel.Level.Basic"},
+	{"obs-browser", "WebpageControlLevel.Level.None"},
+	{"obs-browser", "WebpageControlLevel.Level.ReadObs"},
+	{"obs-ffmpeg", "AMF.8bitUnsupportedHdr"},
+	{"obs-ffmpeg", "AV1.8bitUnsupportedHdr"},
+	{"obs-ffmpeg", "HelperProcessFailed"},
+	{"obs-ffmpeg", "NVENC.8bitUnsupportedHdr"},
+	{"obs-ffmpeg", "WarnWindowsDefender"},
+	{"obs-filters", "HdrTonemap.Description"},
+	{"obs-filters", "SdrOnHdr.Description"},
+	{"obs-nvenc", "8bitUnsupportedHdr"},
+	{"obs-outputs", "PermissionDenied"},
+	{"obs-qsv11", "8bitUnsupportedHdr"},
+	{"obs-websocket", "OBSWebSocket.Plugin.Description"},
+	{"obs-websocket", "OBSWebSocket.Settings.DebugEnableHoverText"},
+	{"obs-x264", "HdrUnsupported"},
+	{"obs-x264", "HighPrecisionUnsupported"},
+	{"win-capture", "Compatibility.GameCapture.Admin"},
+	{"win-capture", "Compatibility.GameCapture.WrongGPU"},
+	{"win-dshow", "Buffering.ToolTip"},
+};
+
+static void apply_twcc_module_branding(const obs_module_t *module, lookup_t *lookup)
+{
+	if (!module->mod_name || !lookup)
+		return;
+
+	for (size_t i = 0; i < sizeof(twcc_locale_branding) / sizeof(twcc_locale_branding[0]); i++) {
+		const struct twcc_locale_branding *branding = &twcc_locale_branding[i];
+		if (strcmp(module->mod_name, branding->module_name) != 0)
+			continue;
+
+		text_lookup_replace(lookup, branding->lookup_value, "OBS", "TWCC");
+	}
+}
 
 static inline int req_func_not_found(const char *name, const char *path)
 {
@@ -888,6 +944,7 @@ lookup_t *obs_module_load_locale(obs_module_t *module, const char *default_local
 
 	bfree(file);
 cleanup:
+	apply_twcc_module_branding(module, lookup);
 	dstr_free(&str);
 	return lookup;
 }
